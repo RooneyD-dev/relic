@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  /* Palette — ink black, chalk white, cool gray, restrained mineral green */
+  --color-ink: #0b0c0b;
+  --color-ink-soft: #141614;
+  --color-ink-line: #1f221f;
+  --color-chalk: #f2f0e9;
+  --color-chalk-dim: #dedbd1;
+  --color-steel: #969d97;
+  --color-steel-dim: #7c837c;
+  --color-mineral: #7e9b87;
+  --color-mineral-deep: #3f5447;
+
+  /* Type */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: "Anton SC", "Inter", sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: auto;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-chalk);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-mineral);
+    color: var(--color-ink);
+  }
+
+  /* Two-tone ring: the ink outline carries contrast on light and mid surfaces,
+     the mineral halo carries it on ink. Either half alone fails somewhere —
+     mineral on chalk is 2.7:1, and mineral on the mineral panel disappears. */
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 5px var(--color-mineral);
+    border-radius: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+/* Fine film grain, kept as a single fixed layer so it never costs layout work. */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* Restrained dot grid used in the hero. */
+.dot-grid {
+  background-image: radial-gradient(rgba(242, 240, 233, 0.22) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: 0 0;
+}
+
+/* Anchors sit clear of the fixed header. */
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+@media (min-width: 768px) {
+  section[id] {
+    scroll-margin-top: 6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

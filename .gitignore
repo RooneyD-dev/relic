@@ -16,6 +16,9 @@ dist-ssr
 .shots
 .playwright-mcp
 
+# Vercel project link (can hold a CLI token)
+.vercel
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -26,3 +29,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.vercel
